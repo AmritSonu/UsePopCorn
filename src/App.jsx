@@ -60,11 +60,15 @@ export default function App() {
         <SearchBar />
         <ResultMovies movies={movies} />
       </NavBar>
-
-      <Main movies={movies}>
-        <MovieSummary watched={watched} />
-        <WatchedMovieList watched={watched} />
-      </Main>
+      <main className="main">
+        <Box>
+          <ResultMoviesBox movies={movies} />
+        </Box>
+        <Box>
+          <MovieSummary watched={watched} />
+          <WatchedMovieList watched={watched} />
+        </Box>
+      </main>
     </>
   );
 }
@@ -112,41 +116,39 @@ function ResultMovies({ movies }) {
   );
 }
 
-function Main({ children, movies }) {
-  const [isOpen2, setIsOpen2] = useState(true);
+// function Main({ children, movies }) {
+//   const [isOpen2, setIsOpen2] = useState(true);
+//   return (
+//     <main className="main">
+//       <MovieBox movies={movies} />
+//       <div className="box">
+//         <button
+//           className="btn-toggle"
+//           onClick={() => setIsOpen2((open) => !open)}
+//         >
+//           {isOpen2 ? "–" : "+"}
+//         </button>
+//         {isOpen2 && children}
+//       </div>
+//     </main>
+//   );
+// }
+
+// Search Result movies box
+function Box({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
   return (
-    <main className="main">
-      <MovieBox movies={movies} />
+    <>
       <div className="box">
         <button
           className="btn-toggle"
-          onClick={() => setIsOpen2((open) => !open)}
+          onClick={() => setIsOpen((open) => !open)}
         >
-          {isOpen2 ? "–" : "+"}
+          {isOpen ? "–" : "+"}
         </button>
-        {isOpen2 && children}
+        {isOpen && children}
       </div>
-    </main>
-  );
-}
-
-// Search Result movies box
-function MovieBox({ movies }) {
-  const [isOpen1, setIsOpen1] = useState(true);
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen1((open) => !open)}
-      >
-        {isOpen1 ? "–" : "+"}
-      </button>
-      {isOpen1 && (
-        <>
-          <ResultMoviesBox movies={movies} />
-        </>
-      )}
-    </div>
+    </>
   );
 }
 
